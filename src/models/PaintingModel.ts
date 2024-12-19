@@ -19,15 +19,7 @@ export const Painting = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    artist_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Artist, // References the artist table
-        key: "artist_id",
-      },
-      onDelete: "CASCADE", // Deletes association if the artist is deleted
-    },
+
     date: {
       type: DataTypes.DATE,
       allowNull: false,
