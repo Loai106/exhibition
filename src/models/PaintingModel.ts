@@ -41,9 +41,12 @@ export const Painting = sequelize.define(
       },
       onDelete: "CASCADE", // Deletes association if the exhibition is deleted
     },
-    sold: {
-      type: DataTypes.BOOLEAN,
+    painting_url: {
+      type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isUrl: true,
+      },
     },
   },
   {

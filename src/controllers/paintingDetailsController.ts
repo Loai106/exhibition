@@ -1,19 +1,29 @@
 import { NextFunction, Request, Response } from "express";
 import { PaintingService } from "../services/paintingService";
 
-const getPaintingDetails = async (
+export const getPaintingDetails = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { painting_id } = req.body;
+    const painting_id = parseInt(req.params.painting_id);
+
+    if (isNaN(painting_id)) {
+      res.status(400).json({
+        message: "invalid id is provided",
+      });
+      return;
+    }
     //getting the painting details
     const painting = await PaintingService.getPainting(painting_id);
 
     //handle empty response
     if (!painting) {
-      throw new Error("no painting found");
+      res.status(400).json({
+        message: "no painting found for this id",
+      });
+      return;
     }
     //handle the artists
     //send the required res
