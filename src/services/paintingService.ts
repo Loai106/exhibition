@@ -5,7 +5,14 @@ export class PaintingService {
   //return all the painting for the exhibtion
   static async getAllPaintings() {
     return await Painting.findAll({
-      attributes: ["painting_id", "paintingName", "date", "height", "width"],
+      attributes: [
+        "painting_id",
+        "paintingName",
+        "date",
+        "height",
+        "width",
+        "painting_url",
+      ],
       include: [
         {
           model: Artist,
