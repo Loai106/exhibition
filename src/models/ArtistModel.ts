@@ -32,13 +32,15 @@ export const Artist = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    dob: {
+    age: {
       type: DataTypes.DATE,
       allowNull: false,
     },
     artistPic: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue:
+        "https://asset.cloudinary.com/dgzsvpncq/8bc99124f179956aa6a0ffd2d959a996",
     },
   },
   {
