@@ -14,7 +14,7 @@ export const Exhibition = sequelize.define(
       allowNull: false,
     },
     exhibitionStory: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     exhibitionUrl: {
