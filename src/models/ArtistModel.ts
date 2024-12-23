@@ -25,7 +25,7 @@ export const Artist = sequelize.define(
       },
     },
     artistStory: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     pob: {
@@ -33,14 +33,12 @@ export const Artist = sequelize.define(
       allowNull: false,
     },
     age: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     artistPic: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
-      defaultValue:
-        "https://asset.cloudinary.com/dgzsvpncq/8bc99124f179956aa6a0ffd2d959a996",
     },
   },
   {

@@ -17,7 +17,6 @@ export const Painting = sequelize.define(
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
 
     date: {
@@ -43,7 +42,7 @@ export const Painting = sequelize.define(
     },
     painting_url: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isUrl: true,
       },
