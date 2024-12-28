@@ -21,9 +21,7 @@ app.listen(PORT, async () => {
   await connectToDB();
   console.log("Connected to DB successfully.");
   // To create the tables, you need to convert the commented lines into normal code:
-  console.log("Connecting to DB...");
-  await connectToDB();
-  console.log("Connected to DB successfully.");
+
   console.log("Setting up associations...");
   setupAssociations();
   console.log("Associations are set up.");
