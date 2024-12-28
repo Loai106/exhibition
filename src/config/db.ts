@@ -5,17 +5,12 @@ dotenv.config();
 
 console.log("environment: ", process.env.DB_NAME);
 
-export const sequelize = new Sequelize(
-  process.env.DB_NAME as string,
-  process.env.DB_USER as string,
-  process.env.DB_PASSWORD as string,
-  {
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    dialect: "mysql",
-    logging: false,
-  }
-);
+export const sequelize = new Sequelize(process.env.DB_DIRECT_URL as string, {
+  // host: process.env.DB_HOST,
+  // port: Number(process.env.DB_PORT),
+  dialect: "postgres",
+  // logging: false,
+});
 
 // Make a connection with database
 export const connectToDB = async () => {
