@@ -9,6 +9,7 @@ import { Artist } from "./ArtistModel";
 import { ArtistPainting } from "./ArtistPaintingModel";
 import { PaintingImage } from "./PaintingImageModel";
 import { Exhibition } from "./ExhibitionModel";
+import { ArtistDonation } from "./ArtistDonation";
 
 export const setupAssociations = () => {
   //Many-to-many relationship between user and painting through FavouritePainting
@@ -145,6 +146,33 @@ export const setupAssociations = () => {
     foreignKey: "exhibition_id",
   });
 
+  //many to many relationship between artist and donation
+  Artist.belongsToMany(Donation, {
+    through: ArtistDonation,
+    foreignKey: "artist_id",
+    otherKey: "donation_id",
+  });
+
+  Donation.belongsToMany(Artist, {
+    through: ArtistDonation,
+    foreignKey: "donation_id",
+    otherKey: "artist_id",
+  });
+
+  //one to many relationship between artist and artistDonation model
+  Artist.hasMany(ArtistDonation, {
+    foreignKey: "artist_id",
+  });
+  ArtistDonation.belongsTo(Artist, {
+    foreignKey: "artist_id",
+  });
+  //one to many relationshipt between Donation and artistDonation model
+  Donation.hasMany(ArtistDonation, {
+    foreignKey: "donation_id",
+  });
+  ArtistDonation.belongsTo(Donation, {
+    foreignKey: "donation_id",
+  });
   //success message
   console.log(colors.green("Models associations created successfully."));
 };
