@@ -2,6 +2,8 @@ import { sequelize } from "../config/db";
 import { DataTypes } from "sequelize";
 import { User } from "./UserModel";
 import { Painting } from "./PaintingModel";
+import { ArtistDonation } from "./ArtistDonation";
+import { PaintingService } from "../services/paintingService";
 
 export const Donation = sequelize.define(
   "donation",
@@ -9,29 +11,28 @@ export const Donation = sequelize.define(
     donation_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
     },
-    donationAmount: {
+    donation_amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    donationDate: {
+    donation_date: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    donationStatus: {
+    donation_status: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: User, // References the user table
-        key: "user_id",
-      },
-      onDelete: "CASCADE", // Deletes association if the user is deleted
-    },
+    // user_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   references: {
+    //     model: User, // References the user table
+    //     key: "user_id",
+    //   }
+    //     },
+
     painting_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -39,7 +40,14 @@ export const Donation = sequelize.define(
         model: Painting, // References the painting table
         key: "painting_id",
       },
-      onDelete: "CASCADE", // Deletes association if the painting is deleted
+    },
+    donor_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    donor_email: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
@@ -47,3 +55,23 @@ export const Donation = sequelize.define(
     timestamps: true,
   }
 );
+
+Donation.afterUpdate(async (donation: any) => {
+  try {
+    if (donation.donation_status === "completed") {
+      const artists = (await PaintingService.getPainting(donation.painting_id))
+        ?.dataValues.artists;
+
+      for (let artist of artists) {
+        await ArtistDonation.create({
+          donation_id: donation.donation_id,
+          artist_id: artist.artist_id,
+          donation_amount: donation.donation_amount,
+          painting_id: donation.painting_id,
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
