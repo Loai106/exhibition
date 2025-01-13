@@ -66,7 +66,7 @@ Donation.afterUpdate(async (donation: any) => {
         await ArtistDonation.create({
           donation_id: donation.donation_id,
           artist_id: artist.artist_id,
-          donation_amount: donation.donation_amount,
+          donation_amount: donation.donation_amount / artists.length,
           painting_id: donation.painting_id,
         });
       }
