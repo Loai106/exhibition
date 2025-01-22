@@ -33,4 +33,16 @@ export class PaintingService {
 
     return painting;
   }
+  //adding new painting
+  static async addPainting(new_painting: any) {
+    const painting = await Painting.create({
+      paintingName: new_painting.painting_name,
+      describion: new_painting.description,
+      height: new_painting.height,
+      width: new_painting.width,
+      date: new_painting.date,
+      exhibition_id: new_painting.exhibition_id,
+      painting_url: new_painting.painting_url,
+    });
+  }
 }
