@@ -6,7 +6,6 @@ import { artistRouter } from "./routes/artistRoutes";
 import paintingRouter from "./routes/paintingRoutes";
 import cors from "cors";
 import paymentRouter from "./routes/paymentRoutes";
-import { adminJS, adminRouter } from "./admin";
 
 dotenv.config();
 
@@ -19,8 +18,6 @@ app.use(cors());
 app.use("/api", artistRouter);
 app.use("/api", paintingRouter);
 app.use("/api", paymentRouter);
-
-app.use(adminJS.options.rootPath, adminRouter);
 
 app.listen(PORT, async () => {
   // To create the tables, you need to convert the commented lines into normal code:
@@ -35,9 +32,4 @@ app.listen(PORT, async () => {
   console.log("Syncing Sequelize...");
   // await sequelize.sync({ alter: true });
   console.log("Sequelize has been synced.");
-
-  console.log(`Server is running on http://localhost:${PORT}`);
-  console.log(
-    `AdminJS is available at http://localhost:${PORT}${adminJS.options.rootPath}`
-  );
 });
