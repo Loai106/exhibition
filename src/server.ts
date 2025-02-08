@@ -6,6 +6,7 @@ import { artistRouter } from "./routes/artistRoutes";
 import paintingRouter from "./routes/paintingRoutes";
 import cors from "cors";
 import paymentRouter from "./routes/paymentRoutes";
+
 dotenv.config();
 
 export const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use("/api", artistRouter);
 app.use("/api", paintingRouter);
 app.use("/api", paymentRouter);
+
 app.listen(PORT, async () => {
   // To create the tables, you need to convert the commented lines into normal code:
   console.log("Connecting to DB...");
