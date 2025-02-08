@@ -1,6 +1,5 @@
 import colors from "colors";
 import { Painting } from "./PaintingModel";
-import { FavouritePainting } from "./FavouritePaintingModel";
 import { Donation } from "./DonationModel";
 import { Category } from "./CategoryModel";
 import { CategoryPainting } from "./CategoryPaintingModel";
