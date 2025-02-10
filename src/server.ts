@@ -29,9 +29,7 @@ app.listen(PORT, async () => {
   console.log("Setting up associations...");
   setupAssociations();
   console.log("Associations are set up.");
-  // console.log("Syncing Sequelize...");
+  console.log("Syncing Sequelize...");
   // await sequelize.sync({ alter: true });
-  // console.log("Sequelize has been synced.");
-
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log("Sequelize has been synced.");
 });

@@ -6,12 +6,11 @@ import { Donation } from "./DonationModel";
 export const ArtistDonation = sequelize.define("artist_donation", {
   artistDonation_id: {
     type: DataTypes.UUID,
-    allowNull: false,
-    autoIncrement: true,
+    defaultValue: DataTypes.UUIDV4, // Automatically generate UUIDs
     primaryKey: true,
   },
   donation_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     references: {
       model: Donation,

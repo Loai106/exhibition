@@ -1,7 +1,5 @@
 import colors from "colors";
-import { User } from "./UserModel";
 import { Painting } from "./PaintingModel";
-import { FavouritePainting } from "./FavouritePaintingModel";
 import { Donation } from "./DonationModel";
 import { Category } from "./CategoryModel";
 import { CategoryPainting } from "./CategoryPaintingModel";
@@ -12,62 +10,12 @@ import { Exhibition } from "./ExhibitionModel";
 import { ArtistDonation } from "./ArtistDonation";
 
 export const setupAssociations = () => {
-  //Many-to-many relationship between user and painting through FavouritePainting
-  User.belongsToMany(Painting, {
-    through: FavouritePainting,
-    foreignKey: "user_id",
-    otherKey: "painting_id",
-  });
-
-  Painting.belongsToMany(User, {
-    through: FavouritePainting,
-    foreignKey: "painting_id",
-    otherKey: "user_id",
-  });
-
-  Painting.hasMany(FavouritePainting, {
-    foreignKey: "painting_id",
-  });
-
-  User.hasMany(FavouritePainting, {
-    foreignKey: "user_id",
-  });
-
-  FavouritePainting.belongsTo(Painting, {
-    foreignKey: "painting_id",
-  });
-
-  FavouritePainting.belongsTo(User, {
-    foreignKey: "user_id",
-  });
-
-  //Many-to-many relationship between user and painting through Donation
-  User.belongsToMany(Painting, {
-    through: Donation,
-    foreignKey: "user_id",
-    otherKey: "painting_id",
-  });
-
-  Painting.belongsToMany(User, {
-    through: Donation,
-    foreignKey: "painting_id",
-    otherKey: "user_id",
-  });
-
   Painting.hasMany(Donation, {
     foreignKey: "painting_id",
   });
 
-  User.hasMany(Donation, {
-    foreignKey: "user_id",
-  });
-
   Donation.belongsTo(Painting, {
     foreignKey: "painting_id",
-  });
-
-  Donation.belongsTo(User, {
-    foreignKey: "user_id",
   });
 
   //Many-to-many relationship between category and painting through categoryPainting

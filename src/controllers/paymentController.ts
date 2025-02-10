@@ -27,9 +27,6 @@ const ordersController = new OrdersController(client);
 const paymentController = new PaymentsController(client);
 
 //TODO
-//2-open transation at capture payment
-//3-update donation status
-//4-close the transaction
 
 export const createOrder = async (req: Request, res: Response) => {
   const collect = {
@@ -47,15 +44,16 @@ export const createOrder = async (req: Request, res: Response) => {
     prefer: "return=minimal",
   };
 
+  console.log("body :", req.body);
   const { name, email, amount, painting_id } = req.body;
 
-  // const { value, error } = validateData({ name, email, amount });
-  // if (error) {
-  //   res.status(400).json({
-  //     message: error.message,
-  //   });
-  //   return;
-  // }
+  const { value, error } = validateData({ name, email, amount });
+  if (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+    return;
+  }
   try {
     // if (!painting_id) {
     //   throw new Error("painting not proivided");
@@ -66,13 +64,18 @@ export const createOrder = async (req: Request, res: Response) => {
     );
 
     const data = JSON.parse(body as string);
-    // const donation = await DonationService.addDonation(
-    //   donation_id:data.id,
-    //   value.name,
-    //   value.email,
-    //   value.amount,
-    //   painting_id
-    // );
+    console.log("balh blah blah:", req.body);
+
+    console.log("balh blah blah:", data);
+    console.log("balh blah blah:", httpResponse);
+
+    const donation = await DonationService.addDonation(
+      data.id,
+      value.name,
+      value.email,
+      value.amount,
+      4
+    );
     console.log(body);
     console.log("id in create order:", data.id);
     res.status(httpResponse.statusCode).json(data);
@@ -97,10 +100,14 @@ export const captureOrder = async (req: Request, res: Response) => {
         );
         console.log("id in capture  order:", JSON.parse(body as string).id);
         const data = JSON.parse(body as string);
+        console.log();
         //update the status
-        // const dontaionId = req.body.donation_id;
-        // await DonationService.updateStatus(dontaionId);
-        res.status(httpResponse.statusCode).json(data);
+        const dontaionId = JSON.parse(body as string).id;
+        console.log("before updating");
+        await DonationService.updateStatus(dontaionId);
+        console.log("before updating");
+
+        return res.status(httpResponse.statusCode).json(data);
       } catch (error) {
         await t.rollback();
         res.status(400).json({
