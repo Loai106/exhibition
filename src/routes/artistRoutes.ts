@@ -5,6 +5,7 @@ import {
   getOneArtist,
   deleteArtist,
   updateArtist,
+  donationInfoByArtist,
 } from "../controllers/artistController";
 import { verifyToken } from "../utils/verifyToken";
 
@@ -16,3 +17,9 @@ artistRouter.get("/artist/:id", getOneArtist);
 artistRouter.post("/artists", verifyToken, addArtist);
 artistRouter.delete("/artists/:id", verifyToken, deleteArtist);
 artistRouter.put("/artists/", verifyToken, updateArtist);
+
+artistRouter.get(
+  "/artist-donation-info/:artist_id",
+  verifyToken,
+  donationInfoByArtist
+);

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import ArtistServices from "../services/artistServices";
-
+import { DonationService } from "../services/donationServices";
 export const getAllArtists = async (req: Request, res: Response) => {
   try {
     const artists = await ArtistServices.getAllArtistsService();
@@ -76,5 +76,37 @@ export const updateArtist = async (req: Request, res: Response) => {
     res.status(artist.status).json(artist.body || {});
   } catch (error) {
     res.status(500).json(error.message);
+  }
+};
+
+export const donationInfoByArtist = async (req: Request, res: Response) => {
+  try {
+    if (isNaN(parseInt(req.params.artist_id))) {
+      res.status(400).json({});
+      return;
+    }
+    const paintingdonationsinfo =
+      await DonationService.getDonationByArtistService(
+        parseInt(req.params.artist_id)
+      );
+    res.status(200).json(paintingdonationsinfo);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "database error",
+    });
+  }
+};
+
+export const donationInfoAllArtists = async (req: Request, res: Response) => {
+  try {
+    const paintingdonationsinfo =
+      await DonationService.getDonationForAllArtists();
+    res.status(200).json(paintingdonationsinfo);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "database error",
+    });
   }
 };
