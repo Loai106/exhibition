@@ -78,6 +78,7 @@ export const createOrder = async (req: Request, res: Response) => {
     );
     console.log(body);
     console.log("id in create order:", data.id);
+    console.log("data is :", data);
     res.status(httpResponse.statusCode).json(data);
   } catch (error) {
     console.error("Failed to create order:", error);
@@ -106,6 +107,7 @@ export const captureOrder = async (req: Request, res: Response) => {
         console.log("before updating");
         await DonationService.updateStatus(dontaionId);
         console.log("before updating");
+        console.log("data is :", data);
 
         return res.status(httpResponse.statusCode).json(data);
       } catch (error) {

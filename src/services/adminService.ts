@@ -14,4 +14,11 @@ export default class AdminService {
     console.log(newadmin);
     return newadmin;
   }
+  static async findAdminEmail(email: string) {
+    return await Admin.findOne({
+      where: {
+        email,
+      },
+    });
+  }
 }
