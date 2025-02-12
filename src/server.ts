@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectToDB, sequelize } from "./config/db";
 import { setupAssociations } from "./models/Assosiation";
 import { artistRouter } from "./routes/artistRoutes";
+import adminrouter from "./routes/adminRoutes";
 import paintingRouter from "./routes/paintingRoutes";
 import cors from "cors";
 import paymentRouter from "./routes/paymentRoutes";
@@ -18,7 +19,7 @@ app.use(cors());
 app.use("/api", artistRouter);
 app.use("/api", paintingRouter);
 app.use("/api", paymentRouter);
-
+app.use("/api", adminrouter);
 app.listen(PORT, async () => {
   // To create the tables, you need to convert the commented lines into normal code:
   console.log("Connecting to DB...");
