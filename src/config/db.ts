@@ -9,7 +9,7 @@ export const sequelize = new Sequelize(process.env.DB_DIRECT_URL as string, {
   // host: process.env.DB_HOST,
   // port: Number(process.env.DB_PORT),
   dialect: "postgres",
-  // logging: false,
+  logging: false,
 });
 
 // Make a connection with database
