@@ -15,9 +15,9 @@ const paintingRouter = express.Router();
 
 paintingRouter.get("/paintings", getAllPaintings);
 paintingRouter.get("/paintings/:painting_id", getPaintingDetails);
-paintingRouter.post("/paintings/add-painting", verifyToken, addPainting);
-paintingRouter.put("/paintings/update-painting", verifyToken, updatePainting);
-paintingRouter.delete("/paintings/delete/:id", verifyToken, deletePainting);
+paintingRouter.post("/paintings/", verifyToken, addPainting);
+paintingRouter.put("/paintings/", verifyToken, updatePainting);
+paintingRouter.delete("/paintings/:id", verifyToken, deletePainting);
 
 paintingRouter.get(
   "/painting-donation-info/:painting_id",
